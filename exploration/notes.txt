@@ -1,0 +1,81 @@
+
+llmperf/config/workloads.py
+    - the workloads are defined with their pathnames
+    - line 64: added new self.requests and self.timestamps to load them anew in notebooks
+      ?maybe it can be removed?
+
+llmperf/constants.py
+    - here the constant paths can be changed
+
+exploration/my_explore.ipynb
+    - contains some notes and hints in the beginning and it is used mostly to search the contents of files
+      and folders, for some printing and for using older files and plotting
+    - contains some cells for pattern deleting
+
+exploration/paths_n_filters.py
+    - file to define paths and filters for image and video resizing and anything else useful
+    - this content was initially in plot_utils.py
+    - have to check the parameters and paths here before running the executions
+    - here I define if I want to apply resizing on tsv data for VLMEvalKit
+
+scripts/run_static_workloads.py
+    - initial file for executing workloads. I added some stuff to be used by the initial img resized workloads
+    - now the added things will not be used again. I had added implementation for stuff like common_shapes_225 and grayscale
+
+exploration/run_vid_experiments_clever_sampling.py
+    - creates resized videos with clever sampling
+    - does the same as exploration/video_experimentation.ipynb but in a script
+    - in general, comment the motion_based because it is too slow
+
+vllm/vllm/entrypoints/llm.py
+    - contains the generate function of vllm
+
+exploration/run_img_experiments_py.py
+    - according to the filters defined in paths_n_filters, creates image subsets and executes them
+    - does the same as exploration/img_experimentation.ipynb but focuses only on creating the subsets and running
+    - added loop for tsv datasets I want depending on what I have defined in paths_n_filters
+
+exploration/accuracy_plots.ipynb
+    - first attempt for image resizing, ?maybe can get rid of?
+
+exploration/img_experimentation.ipynb
+    - creates image resized subsets and executes the requests
+
+scripts/run_static_workloads_img_vid_resizing.py
+    - added clever sampling execution for videos
+    - it is executed via either the image or video notebooks or by the scripts for image and video executions
+    - added a time metric in RequestOutput to count the VideoAsset time for Clever Sampling
+    - added a video frame metric to count how many frames are kept in Sampling and Clever Sampling
+    - added saving some sampled frames from every workload to check them later in exploration/saved_sampled_frames
+
+exploration/util_files/resizing_times.jsonl
+    - comtains the times needed for resizing the modalities for the various workloads
+    - have to check the videos - probably OK
+
+vllm/vllm/assets/video.py
+    - the vllm script that implements the video sampling for the MLLM. We added custom different Sampling techniques
+    - sample_frames_by_scene_change_open_cv_version is the initial we have used and we prefer it when we measure statistics,
+    because it doesn't count timestamps and duration. sample_frames_by_scene_change_decord_version is newer, it does the
+    same job but counts some extra stuff that are useful in VLMEvalKit only and we use it there
+
+vllm/vllm/entrypoints/llm.py
+    - contains the LLM module
+
+exploration/video_experimentation.ipynb
+    - contains two approaches for videos, one is resizing which doesn't improve things and the other is clever sampling
+    - added plots for checking the VideoAsset overhead to check clever sampling with uniform
+
+exploration/plot_utils.py
+    - has most of the plot, accuracy and subset creation functions that I need
+    - added some functions that are useful for working with the images in a tsv file as used in VLEMEvalKit
+    - SOS in call_script_run_static_img_resizing check that the paths work ok
+    - get_img_full_pth_from_tsv_row uses the ORIGINAL_img_folder defined in paths_n_filters depending on the tsv dataset I use
+
+llmperf/postprocessing/output.py
+    - added metric in RequestOutput for counting the VideoAsset time of every request
+    - added metric in RequestOutput for counting frames of the VideoAsset
+
+Useful Notes regarding video frame sampling:
+    - /home/ioannis.dalianis/code/las_konpap/mllm-inference-workload-eval/vllm/vllm/model_executor/models/qwen2_vl.py also has get_num_of_tokens
+    - /home/ioannis.dalianis/code/las_konpap/mllm-inference-workload-eval/vllm/vllm/model_executor/models/llava_next_video.py: line 101: def get_num_video_tokens()
+    - /home/ioannis.dalianis/code/las_konpap/mllm-inference-workload-eval/vllm/vllm/model_executor/models/llava_onevision.py: line 173: def get_num_video_tokens()

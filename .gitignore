@@ -1,0 +1,36 @@
+# Byte-compiled files
+__pycache__/
+
+# Distribution / packaging
+*.egg-info/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python version management
+.python-version
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# do not exclude
+!resizing_times.jsonl
+
+*.npy
+
+env*
