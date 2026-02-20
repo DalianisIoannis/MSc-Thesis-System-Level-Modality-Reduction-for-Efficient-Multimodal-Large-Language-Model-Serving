@@ -309,7 +309,3 @@ If you use this work in your research, please cite:
 ## 📄 License
 
 This project is licensed under the MIT License - see LICENSE file for details.
-
-## 🤝 Contact
-
-For questions or discussions about this thesis work, please reach out to: `ioannis.dalianis@imdea.org`
