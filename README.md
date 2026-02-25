@@ -4,6 +4,12 @@
 
 This repository contains the thesis implementation and benchmark infrastructure for evaluating **system-level modality reduction techniques** to optimize the serving of Multimodal Large Language Models (MLLMs). The core insight is that intelligently reducing input modalities (images and videos) can dramatically improve serving efficiency without significantly compromising task quality.
 
+## 🙏 Acknowledgments
+
+**Evaluation Infrastructure**: For evaluating multimodal datasets with manipulated modalities across various vision-language tasks, this work utilizes a fork of the [VLMEvalKit toolkit](https://github.com/open-compass/VLMEvalKit), available [here](https://github.com/DalianisIoannis/VLMEvalKit).
+
+**Special Thanks** to [Konstantinos Papaioannou](https://github.com/kon-pap) for establishing the foundational architecture of the LLMPerf Inference Benchmark Suite and providing invaluable guidance throughout this thesis work.
+
 ### 🎯 Thesis Contribution
 
 **Problem**: Deploying MLLMs in production faces critical bottlenecks:
